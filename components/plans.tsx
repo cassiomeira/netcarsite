@@ -4,6 +4,7 @@ import { Wifi, Music, Tv, Play, Check, CheckCircle, BookOpen, Smartphone, Shield
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import { WhatsAppDialog } from "@/components/whatsapp"
 
 export function Plans() {
   const plans = [
@@ -120,7 +121,7 @@ export function Plans() {
             >
               <Card 
                 className={`plan-card relative flex flex-col w-full text-white overflow-hidden border ${
-                  plan.popular ? 'border-[#c084fc] shadow-[0_0_25px_rgba(192,132,252,0.25)] scale-[1.02] lg:scale-105 z-10 bg-[#150e26]/90' : 'border-[#c084fc]/20 bg-[#0f0a1a]/80'
+                  plan.popular ? 'border-[#c084fc] shadow-[0_0_25px_rgba(192,132,252,0.25)] scale-[1.02] lg:scale-105 z-10 bg-[#33185c]/95' : 'border-[#c084fc]/20 bg-[#261242]/85'
                 }`}
               >
                 {plan.popular && (
@@ -134,12 +135,12 @@ export function Plans() {
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#c084fc]/50 to-[#8b5cf6]/50"></div>
                 )}
 
-                <CardHeader className={`pb-4 ${plan.popular ? 'pt-10' : 'pt-6'}`}>
+                <CardHeader className={`px-4 pb-4 ${plan.popular ? 'pt-10' : 'pt-6'}`}>
                   <div className="text-center">
                     <CardDescription className="text-[#c084fc] font-semibold tracking-wider text-sm mb-2 uppercase">100% Fibra Óptica</CardDescription>
                     <CardTitle className="text-4xl font-extrabold text-white mb-2">{plan.name}</CardTitle>
                     <div className="flex items-end justify-center gap-1">
-                      <span className="text-3xl font-bold text-white">{plan.price}</span>
+                      <span className="text-[1.7rem] leading-9 font-bold text-white whitespace-nowrap">{plan.price}</span>
                       <span className="text-gray-400 font-medium mb-1">/mês</span>
                     </div>
                   </div>
@@ -161,22 +162,17 @@ export function Plans() {
                 </CardContent>
                 
                 <CardFooter className="pt-6 pb-6">
+                  <WhatsAppDialog mensagem={`Olá! Quero assinar o plano de ${plan.name}.`}>
                   <Button 
                     className={`w-full h-12 text-md font-bold rounded-xl transition-all duration-300 ${
                       plan.popular 
-                        ? 'bg-[#c084fc] hover:bg-[#a855f7] text-white shadow-[0_0_15px_rgba(192,132,252,0.4)] hover:shadow-[0_0_25px_rgba(192,132,252,0.6)]' 
-                        : 'bg-[#1e1432] hover:bg-[#2d1b4e] text-white border border-[#c084fc]/30 hover:border-[#c084fc]'
-                    }`} 
-                    asChild
+                        ? 'bg-[#a855f7] hover:bg-[#9333ea] text-white shadow-[0_8px_22px_rgba(147,51,234,0.4)]' 
+                        : 'bg-[#3a1d66] hover:bg-[#4a2580] text-white border border-[#c084fc]/30 hover:border-[#c084fc]'
+                    }`}
                   >
-                    <a
-                      href="https://api.whatsapp.com/send?phone=5538998340593"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Assinar Agora
-                    </a>
+                    Assinar Agora
                   </Button>
+                  </WhatsAppDialog>
                 </CardFooter>
               </Card>
             </motion.div>

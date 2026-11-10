@@ -66,12 +66,20 @@ export function ChannelLineup() {
   ]
 
   return (
-    <section id="tv" className="py-8 bg-black">
+    <section id="tv" className="py-20 netcar-dark-bg">
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold mb-1 glow-text">
-              GRADE DE <span className="text-[#c084fc]">CANAIS</span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="text-center mb-10">
+            <div className="mb-4 inline-block rounded-full border border-[#c084fc]/50 bg-[#c084fc]/20 px-4 py-1.5 text-sm font-semibold tracking-wide text-[#e9d5ff]">
+              TV NETCAR
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-2 text-white tracking-tight">
+              Grade de <span className="text-[#c084fc] glow-text">Canais</span>
             </h2>
             <p className="text-gray-400 text-sm italic">*A GRADE DE CANAIS PODE MUDAR SEM AVISO PRÉVIO</p>
           </div>
@@ -84,7 +92,7 @@ export function ChannelLineup() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, delay: index * 0.02 }}
                 viewport={{ once: true }}
-                className="bg-[#0f0a1a] border border-[#c084fc]/20 rounded-lg p-2 flex items-center justify-center h-16 hover:border-[#c084fc]/60 hover:shadow-[0_0_15px_rgba(192,132,252,0.3)] transition-all duration-300"
+                className="bg-[#261242] border border-[#c084fc]/20 rounded-lg p-2 flex items-center justify-center h-16 hover:border-[#c084fc]/60 transition-all duration-300"
               >
                 <div className="text-center">
                   <div className="text-white font-bold text-xs">{channel.name}</div>
@@ -94,15 +102,15 @@ export function ChannelLineup() {
           </div>
 
           <div className="mt-8 text-center">
-            <div className="inline-block bg-[#c084fc]/20 border border-[#c084fc]/30 rounded-lg p-6 shadow-[0_0_15px_rgba(192,132,252,0.3)]">
-              <h3 className="text-xl font-bold mb-3 text-[#c084fc] glow-text">Assista onde e quando quiser!</h3>
+            <div className="inline-block bg-[#c084fc]/15 border border-[#c084fc]/30 rounded-2xl p-6">
+              <h3 className="text-xl font-bold mb-3 text-[#c084fc]">Assista onde e quando quiser!</h3>
               <p className="text-gray-300 mb-4">
                 Todos os canais disponíveis nos planos Netcar Telecom, com qualidade digital e sem interferências.
               </p>
               <div className="flex justify-center">
                 <a
                   href="#planos"
-                  className="netcar-button bg-[#c084fc] hover:bg-[#a855f7] text-white font-medium px-6 py-2 rounded-md inline-block shadow-[0_0_15px_rgba(192,132,252,0.5)]"
+                  className="netcar-button bg-[#a855f7] hover:bg-[#9333ea] text-white font-medium px-6 py-2 rounded-md inline-block"
                 >
                   Ver Planos com TV
                 </a>

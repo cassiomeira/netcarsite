@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Netcar Telecom - 100% FIBRA",
-  description: "Internet de fibra óptica de alta velocidade com planos a partir de R$ 89,90",
+  description: "Internet de fibra óptica de alta velocidade com planos a partir de R$ 80,00",
     generator: 'v0.app'
 }
 

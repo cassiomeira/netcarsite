@@ -149,8 +149,17 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: "Montserrat", sans-serif;
-  background-color: #05020a;
+  background-color: #170a26;
   color: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* o cabeçalho é fixo: as âncoras (#planos, #contato...) param abaixo dele */
+[id] {
+  scroll-margin-top: 5.5rem;
 }
 
 .netcar-purple-bg {
@@ -158,7 +167,7 @@ body {
 }
 
 .netcar-dark-bg {
-  background-color: #05020a;
+  background-color: #170a26;
 }
 
 .netcar-gradient-bg {
@@ -192,20 +201,20 @@ body {
 }
 
 .netcar-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px #c084fc, 0 0 30px rgba(192, 132, 252, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(147, 51, 234, 0.45);
 }
 
 .plan-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: rgba(15, 10, 26, 0.8);
+  background: rgba(38, 18, 66, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(192, 132, 252, 0.2);
 }
 
 .plan-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 20px rgba(192, 132, 252, 0.4), 0 0 40px rgba(192, 132, 252, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(10, 4, 20, 0.55), 0 0 0 1px rgba(192, 132, 252, 0.45);
 }
 
 .floating {
@@ -291,17 +300,17 @@ body {
 }
 
 .service-card {
-  background: rgba(15, 10, 26, 0.8);
+  background: rgba(38, 18, 66, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(192, 132, 252, 0.2);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .service-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(192, 132, 252, 0.4), 0 0 40px rgba(192, 132, 252, 0.2);
+  box-shadow: 0 18px 40px rgba(10, 4, 20, 0.55), 0 0 0 1px rgba(192, 132, 252, 0.45);
 }
 
 .neon-border {
@@ -316,7 +325,7 @@ body {
   right: 0;
   bottom: 0;
   border-radius: inherit;
-  box-shadow: 0 0 10px #c084fc, 0 0 20px rgba(192, 132, 252, 0.5);
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.6), 0 0 18px rgba(192, 132, 252, 0.25);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -327,7 +336,7 @@ body {
 }
 
 .glow-text {
-  text-shadow: 0 0 5px #c084fc, 0 0 10px rgba(192, 132, 252, 0.5);
+  text-shadow: 0 0 14px rgba(192, 132, 252, 0.35);
 }
 
 .neon-highlight {
@@ -387,4 +396,25 @@ body {
 
 .pulse-slow {
   animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* ---------- Identidade Netcar (cores do logo e do catálogo) ---------- */
+
+/* Topo: fundo oficial da marca (roxo escuro com os feixes de luz) */
+.hero-netcar {
+  background: #2a0f3f url("/hero-fundo.jpg") center / cover no-repeat;
+}
+
+/* faixa lilás atrás de "melhor conexão", como na capa do catálogo */
+.hero-marca {
+  display: inline-block;
+  padding: 0.04em 0.32em 0.14em;
+  border-radius: 0.18em;
+  background: linear-gradient(90deg, #b765b9 0%, #9a7fe0 100%);
+  box-shadow: 0 12px 30px rgba(23, 10, 38, 0.35);
+}
+
+/* Seção do Chip Netcar: do roxo da marca ao magenta do logo em degradê */
+.chip-netcar {
+  background: linear-gradient(135deg, #2b1450 0%, #5d3494 55%, #9f55a2 100%);
 }

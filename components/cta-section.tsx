@@ -1,116 +1,118 @@
 "use client"
 
-import { Wifi, MessageSquare, Tv, MapPin, CheckCircle, Phone } from "lucide-react"
+import type { ReactNode } from "react"
+import { Wifi, Phone, MessageSquare, Tv, MapPin, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import { LOJAS, WhatsAppDialog, whatsappUrl } from "@/components/whatsapp"
+
+type Acao = {
+  icon: ReactNode
+  title: string
+  description: string
+  buttonText: string
+  href?: string
+  // quando não há href, o botão abre a escolha da loja no WhatsApp com esta mensagem
+  mensagem?: string
+}
 
 export function CTASection() {
-  const actions = [
+  const icone = "h-6 w-6 text-[#c084fc]"
+
+  const acoes: Acao[] = [
     {
-      icon: <Wifi className="h-6 w-6 text-[#c084fc]" />,
+      icon: <Wifi className={icone} />,
       title: "Assinar Plano",
       description: "Escolha o plano ideal para você",
       buttonText: "Ver Planos",
       href: "#planos",
-      delay: 0,
     },
+    ...LOJAS.map((loja) => ({
+      icon: <MessageSquare className={icone} />,
+      title: `WhatsApp ${loja.cidade}`,
+      description: loja.fone,
+      buttonText: "Iniciar Conversa",
+      href: whatsappUrl(loja.numero),
+    })),
     {
-      icon: <Phone className="h-6 w-6 text-[#c084fc]" />,
+      icon: <Phone className={icone} />,
       title: "Telefone Fixo",
       description: "(38) 3526-1957",
       buttonText: "Ligar Agora",
       href: "tel:+553835261957",
-      delay: 0.1,
     },
     {
-      icon: <MessageSquare className="h-6 w-6 text-[#c084fc]" />,
-      title: "WhatsApp",
-      description: "(38) 99834-0593",
-      buttonText: "Iniciar Conversa",
-      href: "https://api.whatsapp.com/send?phone=5538998340593",
-      delay: 0.15,
-    },
-    {
-      icon: <Tv className="h-6 w-6 text-[#c084fc]" />,
+      icon: <Tv className={icone} />,
       title: "Ver Canais",
       description: "Conheça nossa grade de programação",
       buttonText: "Lista de Canais",
-      href: "#canais",
-      delay: 0.2,
+      href: "#tv",
     },
     {
-      icon: <MapPin className="h-6 w-6 text-[#c084fc]" />,
+      icon: <MapPin className={icone} />,
       title: "Verificar Cobertura",
       description: "Veja se sua região é atendida",
       buttonText: "Consultar",
-      href: "#cobertura",
-      delay: 0.25,
+      mensagem: "Olá! Quero saber se a Netcar atende o meu endereço.",
     },
   ]
 
-  const benefits = [
-    {
-      icon: <CheckCircle className="h-6 w-6 text-[#c084fc]" />,
-      text: "Compromisso",
-    },
-    {
-      icon: <CheckCircle className="h-6 w-6 text-[#c084fc]" />,
-      text: "Responsabilidade",
-    },
-    {
-      icon: <CheckCircle className="h-6 w-6 text-[#c084fc]" />,
-      text: "Rapidez",
-    },
-  ]
+  const valores = ["Compromisso", "Responsabilidade", "Rapidez"]
+  const botao = "netcar-button w-full bg-[#a855f7] font-medium text-white hover:bg-[#9333ea]"
 
   return (
-    <section className="py-20 netcar-dark-bg">
+    <section id="contato" className="netcar-dark-bg py-20">
+      {/* âncora antiga, mantida para links já divulgados */}
+      <span id="cobertura" />
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="mb-4 inline-block bg-[#c084fc] text-white px-3 py-1 rounded-full text-sm font-bold shadow-[0_0_10px_rgba(192,132,252,0.7)]">
-            #assine seu plano
+        <div className="mb-16 text-center">
+          <div className="mb-4 inline-block rounded-full border border-[#c084fc]/50 bg-[#c084fc]/20 px-4 py-1.5 text-sm font-semibold tracking-wide text-[#e9d5ff]">
+            #assineseuplano
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
             Somos a parceria <span className="text-[#c084fc] glow-text">ideal</span> para você
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-8 mb-12">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center gap-2">
-                {benefit.icon}
-                <span className="text-white text-lg">{benefit.text}</span>
+
+          <div className="mb-12 mt-8 flex flex-col items-center justify-center gap-6 md:flex-row">
+            {valores.map((texto) => (
+              <div key={texto} className="flex items-center gap-2">
+                <CheckCircle className={icone} />
+                <span className="text-lg text-white">{texto}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {actions.map((action, index) => (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {acoes.map((acao, index) => (
             <motion.div
-              key={index}
+              key={acao.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: action.delay }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
             >
-              <div className="service-card p-6 h-full flex flex-col neon-border">
-                <div className="bg-[#c084fc]/20 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(192,132,252,0.3)]">
-                  {action.icon}
+              <div className="service-card neon-border flex h-full flex-col p-6">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#c084fc]/20 p-4">
+                  {acao.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#c084fc] glow-text">{action.title}</h3>
-                <p className="text-gray-300 mb-6 flex-grow">{action.description}</p>
-                <Button
-                  className="netcar-button bg-[#c084fc] hover:bg-[#a855f7] w-full shadow-[0_0_15px_rgba(192,132,252,0.5)]"
-                  asChild
-                >
-                  <a
-                    href={action.href}
-                    target={action.href.startsWith("http") ? "_blank" : undefined}
-                    rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-white font-medium"
-                  >
-                    {action.buttonText}
-                  </a>
-                </Button>
+                <h3 className="mb-2 text-xl font-bold text-[#c084fc]">{acao.title}</h3>
+                <p className="mb-6 flex-grow text-gray-300">{acao.description}</p>
+                {acao.href ? (
+                  <Button className={botao} asChild>
+                    <a
+                      href={acao.href}
+                      target={acao.href.startsWith("http") ? "_blank" : undefined}
+                      rel={acao.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    >
+                      {acao.buttonText}
+                    </a>
+                  </Button>
+                ) : (
+                  <WhatsAppDialog mensagem={acao.mensagem}>
+                    <Button className={botao}>{acao.buttonText}</Button>
+                  </WhatsAppDialog>
+                )}
               </div>
             </motion.div>
           ))}

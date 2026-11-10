@@ -1,123 +1,113 @@
 "use client"
 
-import { Phone, MessageSquare, Wifi, CheckCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import { Check, MessageCircle, Sparkles } from "lucide-react"
+import { LOJAS, whatsappUrl } from "@/components/whatsapp"
 
+const MENSAGEM = "Olá! Quero saber mais sobre o Chip Netcar."
+
+const BENEFICIOS = [
+  "Ligações ilimitadas para fixo e celular de todo o Brasil",
+  "WhatsApp ilimitado: texto, áudio, vídeo e fotos",
+  "Conexão dentro e fora de casa",
+]
+
+// Seção do Chip Netcar (telefonia móvel). Conteúdo conforme o folder da promoção de lançamento.
 export function MobileService() {
   return (
-    <section id="telefonia" className="py-20 netcar-dark-bg text-white">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section id="telefonia" className="chip-netcar relative overflow-hidden py-24 text-white">
+      <div className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full bg-[#c084fc]/15 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-[480px] w-[480px] rounded-full bg-[#f0a3c4]/15 blur-[140px]" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="mb-4 inline-block bg-[#c084fc] text-white px-3 py-1 rounded-full text-sm font-bold shadow-[0_0_10px_rgba(192,132,252,0.7)]">
-              #assine seu plano
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Telefonia <span className="text-[#c084fc] glow-text">Móvel</span>
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold tracking-wide backdrop-blur-md">
+              <Sparkles className="h-4 w-4 text-[#ffd54a]" />
+              Novidade: Chip Netcar 5G
+            </span>
+
+            <h2 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
+              Aproveite cada momento com o <span className="text-[#ffd54a]">Chip Netcar</span>
             </h2>
-            <p className="text-white/90 mb-8">
-              Aproveite nossa telefonia móvel com planos que cabem no seu bolso e oferecem tudo o que você precisa para
-              se manter conectado.
+            <p className="mb-8 max-w-xl text-lg text-white/90">
+              Agora você pode desfrutar de conexão dentro e fora de casa.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-[#c084fc]/20 p-3 rounded-lg shadow-[0_0_10px_rgba(192,132,252,0.3)]">
-                  <Wifi className="h-6 w-6 text-[#c084fc]" />
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-md">
+              <p className="text-sm font-bold uppercase tracking-wider text-[#ffd54a]">
+                Promoção para os 100 primeiros assinantes
+              </p>
+              <div className="mt-4 flex flex-wrap items-end gap-x-8 gap-y-3">
+                <div>
+                  <p className="text-sm text-white/70">De</p>
+                  <p className="text-2xl font-bold text-white/70 line-through decoration-2">
+                    R$ 79,90<span className="text-sm font-medium">/mês</span>
+                  </p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2 text-white">11GB de Internet Móvel</h3>
-                  <p className="text-white/80">Navegue à vontade com nosso pacote generoso de dados móveis.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-[#c084fc]/20 p-3 rounded-lg shadow-[0_0_10px_rgba(192,132,252,0.3)]">
-                  <Phone className="h-6 w-6 text-[#c084fc]" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Ligações Ilimitadas</h3>
-                  <p className="text-white/80">
-                    Fale sem preocupações com ligações ilimitadas para qualquer operadora.
+                  <p className="text-sm font-semibold">Por</p>
+                  <p className="text-5xl font-extrabold leading-none md:text-6xl">
+                    R$ 39,90<span className="text-lg font-semibold">/mês</span>
                   </p>
                 </div>
               </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-[#c084fc]/20 p-3 rounded-lg shadow-[0_0_10px_rgba(192,132,252,0.3)]">
-                  <MessageSquare className="h-6 w-6 text-[#c084fc]" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2 text-white">SMS Ilimitados</h3>
-                  <p className="text-white/80">Envie mensagens de texto à vontade para qualquer número.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="bg-[#c084fc]/20 p-3 rounded-lg shadow-[0_0_10px_rgba(192,132,252,0.3)]">
-                  <CheckCircle className="h-6 w-6 text-[#c084fc]" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Incluso no Plano Premium</h3>
-                  <p className="text-white/80">Disponível no plano de 600 MB (R$ 119,90) sem custo adicional.</p>
-                </div>
-              </div>
+              <p className="mt-5 text-white/90">
+                <strong className="text-white">Mude agora e ganhe:</strong> internet + celular ilimitado com preço
+                especial de lançamento!
+              </p>
             </div>
 
-            <div className="mt-8">
-              <Button className="netcar-button bg-[#c084fc] hover:bg-[#a855f7]" asChild>
+            <ul className="mt-8 space-y-3">
+              {BENEFICIOS.map((texto) => (
+                <li key={texto} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ffd54a] text-[#3d2278]">
+                    <Check className="h-4 w-4" strokeWidth={3} />
+                  </span>
+                  <span className="text-lg text-white/95">{texto}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mb-3 mt-8 text-sm font-semibold uppercase tracking-wider text-white/80">Fale conosco</p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              {LOJAS.map((loja) => (
                 <a
-                  href="https://api.whatsapp.com/send?phone=5538998340593"
+                  key={loja.cidade}
+                  href={whatsappUrl(loja.numero, MENSAGEM)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-white px-6 font-bold text-[#4a2a86] shadow-lg transition-colors hover:bg-[#f3e8ff]"
                 >
-                  Falar com um Consultor
+                  <MessageCircle className="h-5 w-5 text-[#1fa855]" />
+                  <span className="text-left leading-tight">
+                    <span className="block text-xs font-semibold uppercase tracking-wide text-[#6b4fa0]">
+                      {loja.cidade}
+                    </span>
+                    {loja.fone}
+                  </span>
                 </a>
-              </Button>
+              ))}
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="relative"
           >
-            <div className="relative z-10 floating">
-              <div className="p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-[#c084fc]/30 shadow-[0_0_20px_rgba(192,132,252,0.4)]">
-                <div className="text-center mb-4">
-                  <h3 className="text-2xl font-bold text-white glow-text">Planos Chip Netcar</h3>
-                  <p className="text-white/80 mt-2">Escolha o plano ideal para suas necessidades</p>
-                </div>
-
-                <div className="relative overflow-hidden rounded-lg">
-                  <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/planoschip-rMdoK7UeyQy6dvas7xt20mdEtPPNMV.jpeg"
-                    alt="Planos Chip Netcar"
-                    className="w-full h-auto rounded-lg shadow-[0_0_15px_rgba(192,132,252,0.5)]"
-                  />
-
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <p className="text-white text-center font-bold">
-                      A partir de <span className="text-[#c084fc] text-xl">R$ 39,99</span>/mês
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex justify-center">
-                  <Button className="netcar-button bg-[#c084fc] hover:bg-[#a855f7] w-full" href="#planos">
-                    Ver Detalhes dos Planos
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <img
+              src="/chip-netcar.jpg"
+              alt="Chip Netcar 5G: promoção para os 100 primeiros assinantes, de R$ 79,90 por R$ 39,90 por mês, com ligações e WhatsApp ilimitados"
+              loading="lazy"
+              className="mx-auto w-full max-w-md rounded-3xl border border-white/15 shadow-[0_25px_60px_rgba(23,10,38,0.55)]"
+            />
           </motion.div>
         </div>
       </div>

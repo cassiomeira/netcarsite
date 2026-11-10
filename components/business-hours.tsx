@@ -5,11 +5,11 @@ import { motion } from "framer-motion"
 
 export function BusinessHours() {
   return (
-    <section className="py-20 bg-black">
+    <section id="funcionamento" className="py-20 bg-[#1f0e33]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <div className="mb-4 inline-block bg-[#c084fc] text-white px-3 py-1 rounded-full text-sm font-bold shadow-[0_0_10px_rgba(192,132,252,0.7)]">
-            #assine seu plano
+          <div className="mb-4 inline-block rounded-full border border-[#c084fc]/50 bg-[#c084fc]/20 px-4 py-1.5 text-sm font-semibold tracking-wide text-[#e9d5ff]">
+            #assineseuplano
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 glow-text">Informações Importantes</h2>
           <p className="text-gray-300 max-w-2xl mx-auto">

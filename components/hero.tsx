@@ -1,145 +1,182 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { ArrowRight, Infinity as InfinityIcon, Wifi, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Wifi } from "lucide-react"
+import { WhatsAppDialog } from "@/components/whatsapp"
+
+const DESTAQUES = [
+  { icon: Zap, text: "100% fibra óptica" },
+  { icon: Wifi, text: "Wi-Fi grátis" },
+  { icon: InfinityIcon, text: "Sem limites" },
+]
+
+// Velocímetro desenhado em vetor (fica nítido em qualquer tela): arco de 240°.
+const CX = 180
+const CY = 172
+const R = 128
+const ponto = (graus: number, raio = R) => {
+  const rad = (graus * Math.PI) / 180
+  return [(CX + raio * Math.cos(rad)).toFixed(2), (CY + raio * Math.sin(rad)).toFixed(2)]
+}
+const [X1, Y1] = ponto(150)
+const [X2, Y2] = ponto(390)
+const ARCO = `M ${X1} ${Y1} A ${R} ${R} 0 1 1 ${X2} ${Y2}`
+const MARCAS = Array.from({ length: 13 }, (_, i) => 150 + i * 20)
+
+function Velocimetro() {
+  return (
+    <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[400px]">
+      <svg viewBox="0 0 360 262" className="w-full" aria-hidden="true">
+        <defs>
+          <linearGradient id="vel-cor" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="#9f55a2" />
+            <stop offset="55%" stopColor="#c084fc" />
+            <stop offset="100%" stopColor="#f5d0fe" />
+          </linearGradient>
+          <filter id="vel-brilho" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="8" />
+          </filter>
+        </defs>
+        {MARCAS.map((graus, i) => {
+          const forte = i % 3 === 0
+          const [x1, y1] = ponto(graus, R + 22)
+          const [x2, y2] = ponto(graus, R + (forte ? 33 : 28))
+          return (
+            <line
+              key={graus}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="#ffffff"
+              strokeOpacity={forte ? 0.6 : 0.28}
+              strokeWidth={forte ? 2.5 : 1.5}
+              strokeLinecap="round"
+            />
+          )
+        })}
+        <path d={ARCO} fill="none" stroke="#ffffff" strokeOpacity="0.12" strokeWidth="20" strokeLinecap="round" />
+        <motion.path
+          d={ARCO}
+          fill="none"
+          stroke="url(#vel-cor)"
+          strokeWidth="20"
+          strokeLinecap="round"
+          filter="url(#vel-brilho)"
+          opacity={0.65}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
+        />
+        <motion.path
+          d={ARCO}
+          fill="none"
+          stroke="url(#vel-cor)"
+          strokeWidth="20"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
+        />
+      </svg>
+
+      <div className="absolute inset-x-0 top-[27%] flex flex-col items-center text-center text-white">
+        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">até</span>
+        <span className="flex items-end gap-2 leading-none">
+          <span className="text-6xl font-extrabold tracking-tight sm:text-8xl">1</span>
+          <span className="mb-1 text-3xl font-extrabold tracking-tight text-[#e9d5ff] sm:mb-2 sm:text-5xl">GIGA</span>
+        </span>
+        <span className="mt-1 text-xs font-medium text-white/80 sm:mt-2 sm:text-sm">de internet 100% fibra óptica</span>
+      </div>
+    </div>
+  )
+}
 
 export function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 15 - 7.5,
-        y: (e.clientY / window.innerHeight) * 15 - 7.5,
-      })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
-
   return (
-    <section 
-      className="relative pt-32 pb-24 md:pt-40 md:pb-36 bg-[#09060a] overflow-hidden min-h-[90vh] flex items-center bg-cover bg-center"
-      style={{ 
-        backgroundImage: "url('/bg-stadium.png')",
-      }}
-    >
-      {/* Radial overlay to darken and blend stadium background */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-1 transition-transform duration-1000 ease-out"
-        style={{
-          background: "radial-gradient(1000px 500px at 70% 50%, rgba(122, 75, 255, 0.22), rgba(5, 2, 10, 0.92))",
-          transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
-        }}
-      ></div>
+    <section className="hero-netcar relative overflow-hidden pt-24 md:pt-28">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#170a26]/70 via-[#170a26]/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#170a26] to-transparent" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
-          {/* Left: Text Content */}
+      <div className="container relative z-10 mx-auto px-4 pb-14 md:pb-16">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-white relative"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-white"
           >
-            {/* Subtle floating badge */}
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c084fc] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#c084fc]"></span>
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide backdrop-blur-md">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#e9d5ff] opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#e9d5ff]" />
               </span>
-              <span className="text-sm font-semibold tracking-wide text-gray-200 uppercase">A melhor conexão da região</span>
-            </div>
+              #assineseuplano
+            </span>
 
-            {/* Title */}
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.05] tracking-tight font-sans">
-              <span className="block text-white mb-2">Rumo ao Hexa</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] via-[#d8b4fe] to-[#9333ea] glow-text relative">
-                Netcar Telecom
+            <h1 className="mb-5 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              Você com a
+              <span className="mt-2 block">
+                <span className="hero-marca">melhor conexão</span>
               </span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl font-medium leading-relaxed">
-              Conecte-se ao jogo com fibra 100% e estabilidade.
+            <p className="mb-7 max-w-xl text-lg font-medium leading-relaxed text-white/90">
+              Internet 100% fibra óptica de até 1 Giga, com Wi-Fi grátis e benefícios digitais em todos os planos. Só
+              fica no off quem não tem nosso plano.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                className="h-14 px-8 text-lg font-bold rounded-xl bg-gradient-to-r from-[#c084fc] to-[#9333ea] hover:from-[#a855f7] hover:to-[#7e22ce] text-white shadow-[0_8px_30px_rgba(122,75,255,0.25)] hover:shadow-[0_8px_40px_rgba(122,75,255,0.4)] transition-all duration-300"
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <WhatsAppDialog mensagem="Olá! Quero assinar a internet da Netcar.">
+                <Button className="h-14 rounded-xl bg-white px-8 text-lg font-bold text-[#4a2a86] shadow-[0_10px_30px_rgba(23,10,38,0.45)] transition-all duration-300 hover:bg-[#f3e8ff]">
+                  Assine agora
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </WhatsAppDialog>
+              <Button
+                className="h-14 rounded-xl border border-white/25 bg-white/10 px-8 text-lg font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20"
                 asChild
               >
-                <a
-                  href="https://api.whatsapp.com/send?phone=5538998340593"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a href="#planos">Ver planos</a>
+              </Button>
+            </div>
+
+            <ul className="mt-7 hidden flex-wrap gap-3 sm:flex">
+              {DESTAQUES.map(({ icon: Icon, text }) => (
+                <li
+                  key={text}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white/95 backdrop-blur-md"
                 >
-                  Assine Agora
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
-              <Button 
-                className="h-14 px-8 text-lg font-semibold rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 backdrop-blur-md transition-all duration-300"
-                asChild
-              >
-                <a href="#planos">
-                  Ver Planos
-                </a>
-              </Button>
-            </div>
-
-            {/* Badges */}
-            <div className="mt-10 flex flex-wrap gap-3">
-              <span className="bg-white/5 border border-[#c084fc]/20 text-gray-200 px-4 py-2 rounded-xl text-sm font-semibold shadow-inner">
-                Wi-Fi 6
-              </span>
-            </div>
+                  <Icon className="h-4 w-4 text-[#e9d5ff]" />
+                  {text}
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
-          {/* Right: Interactive WiFi Circle */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            className="relative lg:ml-10"
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+            className="rounded-3xl border border-white/15 bg-[#170a26]/55 px-4 pb-4 pt-5 shadow-[0_30px_70px_rgba(10,4,20,0.55)] backdrop-blur-md sm:px-6 sm:pb-6 sm:pt-8"
           >
-            <div className="relative w-full aspect-square max-w-[420px] mx-auto flex items-center justify-center">
-              {/* Outer glowing rings with cursor movements */}
-              <div 
-                className="absolute inset-0 rounded-full border border-[#c084fc]/20 animate-[spin_12s_linear_infinite] shadow-[0_0_50px_rgba(192,132,252,0.1)] transition-transform duration-1000 ease-out"
-                style={{ transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)` }}
-              ></div>
-              <div 
-                className="absolute inset-6 rounded-full border border-[#9333ea]/30 animate-[spin_18s_linear_infinite_reverse] transition-transform duration-1000 ease-out"
-                style={{ transform: `translate(${mousePosition.x * -1}px, ${mousePosition.y * -1}px)` }}
-              ></div>
-              <div className="absolute inset-16 rounded-full border border-dashed border-[#d8b4fe]/40 animate-[spin_24s_linear_infinite]"></div>
-              
-              {/* Center WiFi Element */}
-              <div 
-                className="relative z-10 bg-gradient-to-br from-[#1a0b2e] to-[#0a0614] border border-[#c084fc]/40 w-52 h-52 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(192,132,252,0.4)] backdrop-blur-md transition-transform duration-1000 ease-out"
-                style={{ transform: `translate(${mousePosition.x * 0.7}px, ${mousePosition.y * 0.7}px)` }}
-              >
-                <Wifi className="w-24 h-24 text-[#cdb3ff] animate-pulse filter drop-shadow-[0_10px_30px_rgba(120,60,255,0.2)]" />
-                <div className="absolute inset-0 rounded-full bg-[#c084fc]/10 animate-ping"></div>
-              </div>
-              
-              {/* Floating stats */}
-              <motion.div 
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[18%] right-[2%] bg-[#0f0a1a]/80 backdrop-blur-md border border-[#c084fc]/30 px-4 py-2 rounded-xl shadow-xl z-20"
-              >
-                <p className="text-white font-bold text-sm">Hexa Fibra</p>
-                <p className="text-[#c084fc] text-xs">Estabilidade Total</p>
-              </motion.div>
-            </div>
+            <Velocimetro />
+            <a
+              href="#planos"
+              className="mx-auto mt-2 flex w-full max-w-sm items-center justify-between gap-4 rounded-2xl bg-[linear-gradient(90deg,#9f55a2_0%,#a855f7_100%)] px-5 py-4 text-white shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <span className="text-sm font-semibold leading-tight">
+                Planos a partir de
+                <span className="block text-2xl font-extrabold leading-tight">
+                  R$ 80,00<span className="text-sm font-semibold">/mês</span>
+                </span>
+              </span>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20">
+                <ArrowRight className="h-5 w-5" />
+              </span>
+            </a>
           </motion.div>
-
         </div>
       </div>
     </section>
