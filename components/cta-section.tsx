@@ -27,13 +27,6 @@ export function CTASection() {
       buttonText: "Ver Planos",
       href: "#planos",
     },
-    ...LOJAS.map((loja) => ({
-      icon: <MessageSquare className={icone} />,
-      title: `WhatsApp ${loja.cidade}`,
-      description: loja.fone,
-      buttonText: "Iniciar Conversa",
-      href: whatsappUrl(loja.numero),
-    })),
     {
       icon: <Phone className={icone} />,
       title: "Telefone Fixo",
@@ -83,7 +76,35 @@ export function CTASection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* WhatsApp de cada loja/região, com o número à vista */}
+        <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[#e9d5ff]">
+          WhatsApp da sua região
+        </h3>
+        <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {LOJAS.map((loja, index) => (
+            <motion.a
+              key={loja.numero}
+              href={whatsappUrl(loja.numero)}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              viewport={{ once: true }}
+              className="flex h-full items-center gap-4 rounded-2xl border border-[#c084fc]/30 bg-[#261242]/85 p-5 transition-colors hover:border-[#c084fc] hover:bg-[#33185c]"
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25d366]/15 text-[#25d366]">
+                <MessageSquare className="h-6 w-6" />
+              </span>
+              <span>
+                <span className="block text-sm font-semibold leading-snug text-gray-300">{loja.cidade}</span>
+                <span className="mt-1 block whitespace-nowrap text-lg font-bold text-white">{loja.fone}</span>
+              </span>
+            </motion.a>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {acoes.map((acao, index) => (
             <motion.div
               key={acao.title}

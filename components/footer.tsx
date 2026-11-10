@@ -117,20 +117,27 @@ export function Footer() {
                 <Phone size={20} className="text-[#c084fc] flex-shrink-0 mt-1" />
                 <span className="text-gray-400">(38) 3526-1957</span>
               </li>
-              {LOJAS.map((loja) => (
-                <li key={loja.cidade} className="flex items-start gap-3">
-                  <MessageSquare size={20} className="text-[#c084fc] flex-shrink-0 mt-1" />
-                  <a
-                    href={whatsappUrl(loja.numero)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-[#c084fc] transition-colors"
-                  >
-                    <span className="block">WhatsApp {loja.cidade}</span>
-                    <span className="block">{loja.fone}</span>
-                  </a>
-                </li>
-              ))}
+              <li className="flex items-start gap-3">
+                <MessageSquare size={20} className="text-[#c084fc] flex-shrink-0 mt-1" />
+                <div className="text-gray-400">
+                  <span className="block mb-2">WhatsApp da sua região</span>
+                  <ul className="space-y-3">
+                    {LOJAS.map((loja) => (
+                      <li key={loja.numero}>
+                        <a
+                          href={whatsappUrl(loja.numero)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block hover:text-[#c084fc] transition-colors"
+                        >
+                          <span className="block text-sm leading-snug">{loja.cidade}</span>
+                          <span className="block font-semibold text-gray-200">{loja.fone}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
               <li className="flex items-start gap-3">
                 <Mail size={20} className="text-[#c084fc] flex-shrink-0 mt-1" />
                 <span className="text-gray-400">financeiro@netcartelecom.com.br</span>

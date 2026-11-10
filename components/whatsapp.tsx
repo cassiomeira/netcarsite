@@ -11,10 +11,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-// Lojas da Netcar e o WhatsApp de cada uma (os mesmos números do material impresso).
+// Atendimento da Netcar por WhatsApp: um número para cada loja/região.
 export const LOJAS = [
   { cidade: "Carbonita", fone: "(38) 99834-0593", numero: "5538998340593" },
   { cidade: "Itamarandiba", fone: "(38) 99939-3846", numero: "5538999393846" },
+  { cidade: "Senador Modestino Gonçalves", fone: "(38) 99886-6240", numero: "5538998866240" },
+  {
+    cidade: "Senador Mourão, Desembargador Otoni e Planalto de Minas",
+    fone: "(38) 99986-3366",
+    numero: "5538999863366",
+  },
 ]
 
 export function whatsappUrl(numero: string, mensagem?: string) {
@@ -23,7 +29,7 @@ export function whatsappUrl(numero: string, mensagem?: string) {
 }
 
 /**
- * Envolve um botão: ao clicar, o cliente escolhe a loja (Carbonita ou Itamarandiba)
+ * Envolve um botão: ao clicar, o cliente escolhe a loja da região dele
  * e só então abre o WhatsApp dela, já com a mensagem preenchida.
  */
 export function WhatsAppDialog({
@@ -41,7 +47,7 @@ export function WhatsAppDialog({
       <DialogContent className="border-[#c084fc]/30 bg-[#1f0e33] text-white sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white">{titulo}</DialogTitle>
-          <DialogDescription className="text-gray-300">Escolha a loja mais perto de você.</DialogDescription>
+          <DialogDescription className="text-gray-300">Escolha o atendimento da sua região.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-3">
           {LOJAS.map((loja) => (
@@ -57,11 +63,11 @@ export function WhatsAppDialog({
                   <MessageCircle className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-bold text-white">{loja.cidade}</span>
+                  <span className="block font-bold leading-snug text-white">{loja.cidade}</span>
                   <span className="block text-sm text-gray-300">{loja.fone}</span>
                 </span>
               </span>
-              <span className="text-sm font-semibold text-[#c084fc]">Abrir</span>
+              <span className="shrink-0 text-sm font-semibold text-[#c084fc]">Abrir</span>
             </a>
           ))}
         </div>

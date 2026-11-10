@@ -75,18 +75,18 @@ export function MobileService() {
             </ul>
 
             <p className="mb-3 mt-8 text-sm font-semibold uppercase tracking-wider text-white/80">Fale conosco</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {LOJAS.map((loja) => (
                 <a
-                  key={loja.cidade}
+                  key={loja.numero}
                   href={whatsappUrl(loja.numero, MENSAGEM)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-white px-6 font-bold text-[#4a2a86] shadow-lg transition-colors hover:bg-[#f3e8ff]"
+                  className="flex min-h-14 items-center gap-3 rounded-xl bg-white px-5 py-2.5 font-bold text-[#4a2a86] shadow-lg transition-colors hover:bg-[#f3e8ff]"
                 >
-                  <MessageCircle className="h-5 w-5 text-[#1fa855]" />
+                  <MessageCircle className="h-5 w-5 shrink-0 text-[#1fa855]" />
                   <span className="text-left leading-tight">
-                    <span className="block text-xs font-semibold uppercase tracking-wide text-[#6b4fa0]">
+                    <span className="mb-0.5 block text-[11px] font-semibold uppercase leading-snug tracking-wide text-[#6b4fa0]">
                       {loja.cidade}
                     </span>
                     {loja.fone}
